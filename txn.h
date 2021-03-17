@@ -70,7 +70,8 @@ public:
     TPL_KV void NAME(Dbi dbi, const TKey* key, const TVal* val) { NAME(dbi, Val{key}, Val{val}); } \
     TPL_KV void NAME(Dbi dbi, const TKey& key, const TVal& val) { NAME(dbi, Val{&key}, Val{&val}); }
 
-    FUNC(put, 0)
+    FUNC(put, MDB_NOOVERWRITE)
+    FUNC(overwrite, 0)
     FUNC(append, MDB_APPEND)
     FUNC(append_dup, MDB_APPENDDUP)
 

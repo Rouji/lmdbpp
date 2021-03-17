@@ -76,7 +76,8 @@ public:
     TPL_KV void NAME(const Val<TKey>& key, const Val<TVal>& val) { _put(key.mdb_val(), val.mdb_val(), FLAGS); } \
     TPL_KV void NAME(const KeyVal<TKey, TVal>& kv) { NAME(kv.key, kv.val); }
 
-    FUNC(put, 0)
+    FUNC(put, MDB_NOOVERWRITE)
+    FUNC(overwrite, 0)
     FUNC(replace, MDB_CURRENT)
     FUNC(append, MDB_APPEND)
     FUNC(append_dup, MDB_APPENDDUP)
