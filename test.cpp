@@ -52,10 +52,10 @@ void multi(Env& env)
     for (int i=0; i<n; ++i)
         c.put(key, Val{&i});
 
-    MultiValIterator<const char, int> it1{txn,dbi,key};
+    MultiValIterator<decltype(key)::t, int> it1{txn,dbi,key};
     for (auto& vals : it1)
         assert(vals.size() == n*sizeof(int));
-    DupValIterator<const char, int> it2{txn,dbi,key};
+    DupValIterator<decltype(key)::t, int> it2{txn,dbi,key};
     for (auto& vals : it2)
         assert(vals.size() == sizeof(int));
 }
@@ -73,11 +73,10 @@ void dup(Env& env)
     c.seek(key);
     assert(c.dup_count() == 3);
 
-    DupValIterator<const char, char> it{txn,dbi,key};
+    DupValIterator<decltype(key)::t, char> it{txn,dbi,key};
     int i=0;
     for (auto& val : it)
     {
-        std::cout<<val.to_str()<<std::endl;
         ++i;
     }
     assert(i == 3);

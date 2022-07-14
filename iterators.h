@@ -68,7 +68,7 @@ class KeyValNextable
 {
 public:
 
-    KeyValNextable(Cursor& c) : _c(c) {}
+    KeyValNextable(Txn& txn, Dbi dbi) : _c{txn, dbi} {}
 
     bool next(KeyVal<const TKey, const TVal>& out)
     {
@@ -92,7 +92,7 @@ public:
     }
 private:
     bool _first = true;
-    Cursor& _c;
+    Cursor _c;
 };
 template <typename TKey, typename TVal> using KeyValIterator = OwningNextIteratable<KeyValNextable<TKey, TVal>, KeyVal<const TKey, const TVal>>;
 
